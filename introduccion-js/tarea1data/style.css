@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #f0f0f0; /* Cambia el color de fondo del cuerpo */
+}
+
+header {
+  padding: 15px;
+  background-color: darkcyan;
+  color: white; /* Cambia el color del texto a blanco */
+  text-align: center;
+  text-transform: uppercase;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Distribución de las tarjetas */
+  gap: 15px;
+  padding: 15px; /* Agrega espaciado alrededor del contenido principal */
+  justify-content: center; /* Centra las tarjetas horizontalmente */
+}
+
+.card-employee {
+  width: 100%; /* Haz que las imágenes ocupen todo el ancho del contenedor */
+  height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
+  max-height: 200px; /* Establece una altura máxima para las imágenes */
+}
+
+.card {
+  background-color: chocolate;
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 7px solid #ccc; /* Agrega un borde para separar las tarjetas */
+  border-radius: 5px; /* Borde redondeado */
+  overflow: hidden; /* Evita que el contenido se desborde */
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.83); /* Sombra suave */
+}
+
+.employee-info {
+  background-color: chocolate;
+  padding: 10px; /* Agrega espacio dentro de la tarjeta de información */
+  text-align:justify;
+  color: white; /* Cambia el color del texto a blanco */
+}
+
+.employee-info-name {
+  font-size: 18px; /* Reduce el tamaño del nombre */
+  font-weight: bold;
+  margin-bottom: 5px; /* Agrega espacio entre los elementos de información */
+}
+
+.employee-info-age,
+.employee-info-salary,
+.employee-info-address,
+.employee-info-phone,
+.employee-info-zipcode {
+  font-size: 14px; /* Establece un tamaño de fuente uniforme */
+  margin-bottom: 3px; /* Agrega espacio entre los elementos de información */
+}
+
+

@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: linear-gradient(
+    to top,
+    rgba(34, 54, 8, 0.902),
+    rgba(128, 213, 157, 0.562)
+  );
+}
+
+header h2 {
+  font-size: 50px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 20px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #fafafa;
+  padding: 40px;
+  border-radius: 12px;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+.item label {
+  font-size: 20px;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.item input {
+  padding: 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: #606c38;
+  color: #fff;
+}
+.item input:focus {
+  outline-color: #606c38;
+}
+
+.item button {
+  padding: 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #fefae0;
+  text-transform: uppercase;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.4s ease-in;
+}
+.item button:hover {
+  background-color: #606c38;
+  color: #f3f3f3;
+}
+
+.item button {
+  width: 100%;
+}
