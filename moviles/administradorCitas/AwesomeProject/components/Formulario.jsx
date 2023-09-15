@@ -1,94 +1,135 @@
-import {Modal, SafeAreaView,Text, StyleSheet, View, TextInput, Button, Pressable} from "react-native"
+import {Modal, SafeAreaView,Text, StyleSheet, View, TextInput, StatusBar, Alert, ScrollView} from "react-native"
 import DatePicker from "react-native-date-picker"
 import { useState } from "react"
-const Formulario = ({modalVisible, newDateHandler}) => {
+import CustomButton from "./CustomButton"
+
+
+const Formulario = ({modalVisible, newDateHandler, setPacientes, pacientes}) => {
+    const [paciente, setPaciente]= useState('')
+    const [email, setEmail]=useState('')
+    const [telefono, setTelefono]= useState('')
     const [date, setDate] = useState(new Date())
+    const [sintomas, setSintomas]= useState('')
+
+    const handlerAppointment = () => {
+        console.log('hiciste Click')
+        if([paciente,email,telefono,sintomas].includes('')){        
+        Alert.alert(
+            'Error',
+            'Todos los campos son obligatorios',
+            [{text: 'Ya entendi'},
+            {text: 'aceptar'}],
+        )
+        return
+        }
+
+        const nuevoPaciente ={
+            paciente,
+            email,
+            telefono,
+            date,
+            sintomas
+        }
+        
+        setPacientes([...pacientes,nuevoPaciente])
+        clearFields()
+        newDateHandler()
+    }
+
+    const clearFields = () => {
+        setPaciente('')
+        setEmail('')
+        setTelefono('')
+        setDate(new Date())
+        setSintomas('')
+    }
+
+
     return(
-        <Modal 
-            animationType="slide"
-            visible= {modalVisible}
-            >
-                <SafeAreaView style={style.container}>
-                    <Text style={style.title}>
+          (
+          
+            <Modal animationType="slide" visible= {modalVisible}>
+
+            <StatusBar backgroundColor={'#333'}></StatusBar>
+                <SafeAreaView style={estilos.container}>
+                    <ScrollView>
+                    <Text style={estilos.title}>
                         Nueva {''}
-                    <Text style={style.titleBold}>cita</Text>
+                    <Text style={estilos.titleBold}>cita</Text>
                     </Text>
-                    <View>
-                        <Text 
-                        style={style.label}>Nombre del paciente</Text>
-                        <TextInput 
-                        style= {style.input}
-                        placeholder = "Nombre del paciente" 
-                        placeholderTextColor={'#666'}></TextInput>
+
+                    <View style={estilos.group}>
+                        <Text style={estilos.label}>Nombre del paciente</Text>
+                        <TextInput  value={paciente} onChangeText={setPaciente} style= {estilos.input} placeholder = "Nombre del paciente" placeholderTextColor={'#666'}></TextInput>
                     </View>
-                    <View>
-                        <Text 
-                        style={style.label}>Email del Paciente</Text>
-                        <TextInput 
-                        style= {style.input}
-                        placeholder = "email" 
-                        placeholderTextColor={'#666'}></TextInput>
+
+                    <View style={estilos.group}>
+                        <Text style={estilos.label}>Email del Paciente</Text>
+                        <TextInput value={email} onChangeText={setEmail} style= {estilos.input} placeholder = "email" placeholderTextColor={'#666'}></TextInput>
                     </View>
-                    <View>
-                        <Text 
-                        style={style.label}>Numero de telefono del paciente</Text>
-                        <TextInput 
-                        style= {style.input}
-                        placeholder = "Numero de telefono del paciente" 
-                        placeholderTextColor={'#666'}></TextInput>
+
+                    <View style={estilos.group}>
+                        <Text style={estilos.label}>Numero de telefono del paciente</Text>
+                        <TextInput value={telefono} onChangeText={setTelefono} style= {estilos.input} placeholder = "Numero de telefono del paciente" placeholderTextColor={'#666'}></TextInput>
                     </View>
-                    <View Style={style.group}>
-                        <Text style={style.label}></Text>
+
+                    <View style={estilos.group}>
+                        <Text style={estilos.label}></Text>
                         <DatePicker date={date}></DatePicker>
                     </View>
-                    <View>
-                        <Text 
-                        style={style.label}>Sintomas</Text>
-                        <TextInput 
-                        style= {[style.input, style.inputSympyoms]}
-                        placeholder = "Sintomas" 
-                        multiline={true}
+
+                    <View style={estilos.group}>
+                        <Text style={estilos.label}>Sintomas</Text>
+                        <TextInput value ={sintomas} onChangeText={setSintomas} style= {[estilos.input, estilos.inputSympyoms]} placeholder = "Sintomas" multiline={true}
                         placeholderTextColor={'#666'}></TextInput>
                     </View>
-                    <Pressable
-                        style={style.buttonStyle}
-                        onPress={newDateHandler}><Text>Registrar</Text></Pressable>
+
+                    <CustomButton title={'Cancelar'}  onPress={() => {
+                        clearFields()
+                        newDateHandler()
+                        }}>
+                            <Text>Cancelar</Text>
+                    </CustomButton>
+
+                    <CustomButton title={'Registrar Cita'} onPress={() => handlerAppointment()}>
+                            <Text>Registrar</Text>
+                    </CustomButton>
+                    
+                    </ScrollView>            
                 </SafeAreaView>
-            </Modal>
+            </Modal>)
     )
 }
-const style = StyleSheet.create({
+
+
+const estilos = StyleSheet.create({
     container:{
         flex: 1,
         backgroundColor: '#e3d5ca'
     },
     input:{
         marginHorizontal: 30,
-        marginBottom:50,
+        marginBottom:10,
         backgroundColor: 'white',
     },
-    buttonStyle: {
-        padding: 10,
-        width: 102,
-        backgroundColor: 'green',
-        borderRadius:50,
-        marginHorizontal: 400,
-    },
+   
     label: {
         paddingLeft: 30,
         marginTop: 15,
         fontSize: 20,
-        fontWeight: 600,
-
+    },
+    group:{
+        marginHorizontal: 30
     },
     title: {
         fontSize: 30,
-        fontWeight: 600,
+        fontWeight: '400',
         textAlign: 'center',
         textTransform: 'uppercase',
     },
     titleBold: {
-        fontWeight: 900,
+        fontWeight: 'bold'
+        
     },
     inputSympyoms: {
         fontSize: 16,

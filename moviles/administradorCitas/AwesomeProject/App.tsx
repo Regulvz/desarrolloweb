@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Pressable,
+  Button,
+  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -10,7 +11,9 @@ import Formulario from './components/Formulario';
 
 function App(): JSX.Element {
   const [modalVisible, setModalVisible] = useState(false)
-  
+  const [pacientes, setPacientes]=useState([])
+  console.log(pacientes)
+  const arraypacientes= pacientes.map((pacientes) => pacientes)
   const newDateHandler= ()=>{
     setModalVisible(false)
   }
@@ -19,20 +22,23 @@ function App(): JSX.Element {
             <Text style={styles.title}> administrador de citas {''}
              <Text style={styles.titlebold}>veterinaria</Text>
             </Text>
-            <Pressable 
-            style={styles.buttonStyle}
-            onPress={() => {
-              setModalVisible(true);
-            }}
-            >
-                <Text style={styles.buttonstyleText}>Nueva cita</Text>
-            </Pressable>
-           <Formulario modalVisible={modalVisible} newDateHandler={newDateHandler}
-           />
+            <Text>DATOS</Text>
+            <FlatList
+  data={pacientes}
+  renderItem={({ item }) => (
+    <Text>
+    Nombre: {item.paciente}, 
+    Email: {item.email}, 
+    Telefono:{item.telefono},
+    Sintomas: {item.sintomas}
+    </Text>
+  )}
+/>
+            <Button title='aceptar' onPress={()=> {setModalVisible(true)}}/>
+            <Formulario modalVisible={modalVisible} newDateHandler={newDateHandler} setPacientes={setPacientes} pacientes={pacientes}/>
         </SafeAreaView>
     )
 }
-
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
@@ -50,10 +56,10 @@ const styles = StyleSheet.create({
     color:'#7209b7'
   },
   buttonStyle: {
-        padding: 10,
+        paddind: 10,
         width: 102,
         backgroundColor: 'green',
-        borderRadius:10,
+        borderRadius:30,
         marginHorizontal: 400,
     },
     buttonstyleText: {
